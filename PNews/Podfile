@@ -11,6 +11,6 @@ target 'PNews' do
     pod 'IQKeyboardManagerSwift'
     pod 'AlamofireObjectMapper'
     pod 'SkyFloatingLabelTextField'
-
+#    pod 'RealmSwift'
 end
 
