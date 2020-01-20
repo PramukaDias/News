@@ -51,7 +51,6 @@ extension PNProfileViewController{
     }
     
     private func setUserDetails(){
-        self.pnUser = RealmService.shared.realm.objects(NUser.self).first
         self.fullNameTextField.text = self.pnUser.fullname
         self.userNameTextField.text = self.pnUser.username
         self.emailTextField.text = self.pnUser.email
@@ -59,6 +58,7 @@ extension PNProfileViewController{
     }
     
     private func configureUpdatedView(){
+        self.pnUser = RealmService.shared.realm.objects(NUser.self).first
         self.title = "Update profile"
         self.registerButton.setTitle("Update", for: .normal)
     }
