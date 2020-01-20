@@ -9,6 +9,7 @@
 import UIKit
 import SwiftMessages
 import SkyFloatingLabelTextField
+import RealmSwift
 
 class PNProfileViewController: UIViewController {
 
@@ -18,14 +19,7 @@ class PNProfileViewController: UIViewController {
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var registerButton: UIButton!
     
-    private var pnUser: PNUser!
-    
-    lazy private var userInfoDict = [
-        "fullName" : self.fullNameTextField.text!.trim(),
-        "userName" : self.userNameTextField.text!.trim(),
-        "email"    : self.emailTextField.text!.trim(),
-        "password" : self.passwordTextField.text!.trim()
-    ]
+    private var pnUser: NUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +39,7 @@ extension PNProfileViewController{
             self.registerButton.setTitle("Register", for: .normal)
             return
         }
-        self.title = "Update profile"
-        self.registerButton.setTitle("Update", for: .normal)
+        configureUpdatedView()
         self.setUserDetails()
     }
     
@@ -58,13 +51,17 @@ extension PNProfileViewController{
     }
     
     private func setUserDetails(){
-        self.pnUser = PNCoreDataHandler.getUserDetails()
+        self.pnUser = RealmService.shared.realm.objects(NUser.self).first
         self.fullNameTextField.text = self.pnUser.fullname
         self.userNameTextField.text = self.pnUser.username
         self.emailTextField.text = self.pnUser.email
         self.passwordTextField.text = self.pnUser.password
     }
     
+    private func configureUpdatedView(){
+        self.title = "Update profile"
+        self.registerButton.setTitle("Update", for: .normal)
+    }
 }
 
 // MARK: Button action
@@ -123,19 +120,35 @@ extension PNProfileViewController{
 extension PNProfileViewController{
     
     private func saveUserInfo(){
-        guard PNCoreDataHandler.saveUserDetails(userInfo: userInfoDict) else {
+        guard RealmService.shared.create(getUser()) else {
             PNUtils.displayAlert(message: PNMessages.USER_DATA_SAVED_FAILED_MESSAGE, themeStyle: .error)
             return
         }
         UserDefaults.standard.set(true, forKey: PNMessages.USER_INFO_SAVED)
+        configureUpdatedView()
         PNUtils.displayAlert(message: PNMessages.USER_DATA_SAVED_SUCCESS_MESSAGE, themeStyle: .success)
     }
     
     private func updateUserInfo(){
-        guard PNCoreDataHandler.updateUserDetails(user: self.pnUser, updatedUserInfo: self.userInfoDict) else {
+        guard RealmService.shared.update(self.pnUser, with: getUpdatedUserDictionary()) else {
             PNUtils.displayAlert(message: PNMessages.USER_DATA_UPDATED_FAILED_MESSAGE, themeStyle: .error)
             return
         }
         PNUtils.displayAlert(message: PNMessages.USER_DATA_UPDATED_SUCCESS_MESSAGE, themeStyle: .success)
+    }
+    
+    private func getUser() -> NUser{
+        let user = NUser(fullname:  self.fullNameTextField.text!.trim(), username: self.userNameTextField.text!.trim(), email: self.emailTextField.text!.trim(), password: self.passwordTextField.text!.trim())
+        return user
+    }
+    
+    private func getUpdatedUserDictionary() -> [String: Any]{
+        let userInfoDict = [
+            "fullname" : self.fullNameTextField.text!.trim(),
+            "username" : self.userNameTextField.text!.trim(),
+            "email"    : self.emailTextField.text!.trim(),
+            "password" : self.passwordTextField.text!.trim()
+        ]
+        return userInfoDict
     }
 }
