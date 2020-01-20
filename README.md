@@ -1,5 +1,5 @@
-
 Demo URL : https://www.dropbox.com/s/pa48rdbzh4symno/newsapprecorder.mov?dl=0
+
 
 Application Information
 
@@ -16,6 +16,10 @@ Application Information
     Language : Swift 5.0
 
 
+Project configuration
+
+     Before you run the project, run "pod install" from the command line.
+    
 Application Features
 
     1. Application supports iOS 10 and above.
@@ -32,4 +36,4 @@ Application Features
 
     7. Custom news feature was implemented.
 
-    8. Profile view was implemented. User can register and update profile information (save and update profile information in local storage using Core Data).
+    8. Added Realm Database - Profile view was implemented. User can register and update profile information.
