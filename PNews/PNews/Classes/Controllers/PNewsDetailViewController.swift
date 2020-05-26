@@ -18,12 +18,7 @@ class PNewsDetailViewController: PNBaseViewController {
         super.viewDidLoad()
         self.configureDetailView()
     }
-    
-    private func configureDetailView(){
-        self.title = "News Detail"
-        self.configureTableView()
-    }
-    
+
     @objc private func goToNewsButtonAction(sender: UIButton!) {
         guard let urlS = self.didSelectArticle.url else { return }
         guard let url = URL(string:urlS),UIApplication.shared.canOpenURL(url) else { return }
@@ -35,6 +30,11 @@ class PNewsDetailViewController: PNBaseViewController {
 // MARK: Configure TableView
 
 extension PNewsDetailViewController{
+    
+    private func configureDetailView(){
+        self.title = "News Detail"
+        self.configureTableView()
+    }
     
     private func configureTableView(){
         self.detailNewsTableView.register(UINib(nibName: "PNewsDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "PNewsDetailTableViewCell")

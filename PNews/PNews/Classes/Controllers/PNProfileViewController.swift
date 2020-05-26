@@ -127,6 +127,7 @@ extension PNProfileViewController{
         UserDefaults.standard.set(true, forKey: PNMessages.USER_INFO_SAVED)
         configureUpdatedView()
         PNUtils.displayAlert(message: PNMessages.USER_DATA_SAVED_SUCCESS_MESSAGE, themeStyle: .success)
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func updateUserInfo(){
@@ -135,6 +136,7 @@ extension PNProfileViewController{
             return
         }
         PNUtils.displayAlert(message: PNMessages.USER_DATA_UPDATED_SUCCESS_MESSAGE, themeStyle: .success)
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func getUser() -> NUser{

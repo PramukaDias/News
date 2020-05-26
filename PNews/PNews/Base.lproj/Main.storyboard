@@ -475,13 +475,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="sC8-ai-L2V" firstAttribute="trailing" secondItem="Tg9-x3-smx" secondAttribute="trailing" constant="20" id="7IL-7h-XMo"/>
+                            <constraint firstItem="oKr-Pe-K0r" firstAttribute="leading" secondItem="0Xf-BN-Y6M" secondAttribute="leading" id="EA3-dh-bbQ"/>
                             <constraint firstItem="0Xf-BN-Y6M" firstAttribute="top" secondItem="oKr-Pe-K0r" secondAttribute="bottom" constant="32" id="Uqc-yQ-wuo"/>
                             <constraint firstItem="0Xf-BN-Y6M" firstAttribute="leading" secondItem="sC8-ai-L2V" secondAttribute="leading" constant="15" id="W0a-ce-COP"/>
                             <constraint firstItem="sC8-ai-L2V" firstAttribute="trailing" secondItem="0Xf-BN-Y6M" secondAttribute="trailing" constant="15" id="Wig-1h-YNI"/>
                             <constraint firstItem="oKr-Pe-K0r" firstAttribute="top" secondItem="sC8-ai-L2V" secondAttribute="top" constant="20" id="YNX-7p-ciW"/>
                             <constraint firstItem="Tg9-x3-smx" firstAttribute="centerY" secondItem="FUt-TG-d2Q" secondAttribute="centerY" id="aeX-mo-DYJ"/>
-                            <constraint firstItem="sC8-ai-L2V" firstAttribute="trailing" secondItem="oKr-Pe-K0r" secondAttribute="trailing" constant="15" id="jvL-ne-Ce3"/>
-                            <constraint firstItem="oKr-Pe-K0r" firstAttribute="leading" secondItem="Ly1-z4-kGM" secondAttribute="leading" constant="15" id="zHt-0M-J55"/>
+                            <constraint firstItem="oKr-Pe-K0r" firstAttribute="trailing" secondItem="0Xf-BN-Y6M" secondAttribute="trailing" id="k8Y-Av-DX3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sC8-ai-L2V"/>
                     </view>

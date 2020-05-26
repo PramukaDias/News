@@ -18,16 +18,16 @@ class PNKeywordSelectionViewController: PNBaseViewController {
         self.configureKeywordView()
     }
     
-    private func configureKeywordView(){
-        self.title = "Custom News Selection"
-        self.configureTableView()
-    }
-    
 }
 
 // MARK: Configure TableView
 
 extension PNKeywordSelectionViewController{
+    
+    private func configureKeywordView(){
+        self.title = "Custom News Selection"
+        self.configureTableView()
+    }
     
     private func configureTableView(){
         self.keywordsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellIdentifier")

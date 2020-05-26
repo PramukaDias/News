@@ -41,7 +41,6 @@ struct PNColors {
 }
 
 // MARK: News view types
-
 enum NewsViewType {
     case newsListView
     case topHeadlineView

@@ -51,15 +51,13 @@ class PNewsViewController: PNBaseViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        switch viewType {
-        case .newsListView:
-        self.tabViewHeight.constant = (UIDevice.current.isIpad()) ?  60.0 : 50.0
-        self.menuView.isHidden = false
-        case .topHeadlineView, .customNewsview:
-            self.tabViewHeight.constant = 0.0
-            self.menuView.isHidden = true
-        }
+        configureViewWillLayoutSubviews()
     }
+        
+}
+
+// MARK: Configure TableView
+extension PNewsViewController{
     
     private func configureView(){
         self.configureTableView()
@@ -67,30 +65,34 @@ class PNewsViewController: PNBaseViewController {
         self.getNews()
     }
     
-}
-
-// MARK: Configure TableView
-
-extension PNewsViewController{
-    
     private func configureTableView(){
         self.newsTableView.register(UINib(nibName: "PNewsTableViewCell", bundle: nil), forCellReuseIdentifier: "PNewsTableViewCell")
         self.newsTableView.dataSource = self
         self.newsTableView.delegate = self
     }
+    
+    private func configureViewWillLayoutSubviews(){
+        switch viewType {
+            case .newsListView:
+                self.tabViewHeight.constant = (UIDevice.current.isIpad()) ?  60.0 : 50.0
+                self.menuView.isHidden = false
+            case .topHeadlineView, .customNewsview:
+                self.tabViewHeight.constant = 0.0
+                self.menuView.isHidden = true
+        }
+    }
 }
 
 // MARK: API
-
 extension PNewsViewController{
     
     private func getNews(){
         if !PNUtils.isConnectedToInternet(){ return }
         self.startActivityAnimating(message: self.loadingText)
-        PNewsAPI.getNews(viewType: self.viewType, keyword: self.keyword, onSuccess: {( newsArray : [Article]?) -> Void in
-            self.stopActicityAnimating()
-            self.articlesArray = newsArray!
+        PNewsAPI.getNews(viewType: self.viewType, keyword: self.keyword, onSuccess: {( newsArray : [Article]) -> Void in
+            self.articlesArray = newsArray
             self.newsTableView.reloadData()
+            self.stopActicityAnimating()
         }, onError: {(_ message) -> Void in
             self.stopActicityAnimating()
             PNUtils.displayAlert(message: message, themeStyle: .error)
@@ -99,7 +101,6 @@ extension PNewsViewController{
 }
 
 // MARK: Navigation
-
 extension PNewsViewController{
     
     @IBAction func topHeadlineButtonAction(_ sender: Any) {
